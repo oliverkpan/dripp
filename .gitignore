@@ -1,5 +1,7 @@
 images/
 temp_images/
+profile/
 *.json
 __pycache__/
 *.pkl
+*.csv

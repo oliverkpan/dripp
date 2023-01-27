@@ -39,8 +39,10 @@ def write_results_to_df(results):
         
         new_data = pd.DataFrame([[title, link, source, price, thumbnail]], columns=columns)
         df = pd.concat([df, new_data])
-    
-    st.write(df)
+        df = df[~df['price'].isna()]
+        
+        st.write(df)
+
     return df
 
 def read_api_key():
@@ -119,3 +121,13 @@ def random_with_N_digits(n):
     range_start = 10**(n-1)
     range_end = (10**n)-1
     return randint(range_start, range_end)
+
+def write_user_data(user_id, username, created_date):
+
+    # Read the data in GCS
+
+    # Concat this new row to it
+
+    # Overwrite that data in GCS
+    df = pd.DataFrame()
+    return df

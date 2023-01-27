@@ -5,6 +5,7 @@ from data_utils import write_results_to_df
 from search import google_lens
 import os
 from prototype import prototype
+from st_imgrid import imgrid
 from yaml import SafeLoader
 import yaml
 import streamlit_authenticator as stauth
@@ -31,20 +32,19 @@ name, authentication_status, username = authenticator.login('Login', 'main')
 
 if authentication_status:
 
-    # Lookup username in database and show current profile
-
-    # user_df = user_df[user_df['username'] == username]
-
-
-
     # Create sidebar
     with st.sidebar:
         st.image('images/dripp.png')
-        select_option = st.radio("Select", ("App Prototype", "How to use", "FAQ"))
+        select_option = st.radio("Select", ("Outfit Detection", "Profile", "How to use", "FAQ"))
         authenticator.logout('Logout', 'main')
 
-    if select_option == "App Prototype":
-        prototype()
+    if select_option == "Outfit Detection":
+        prototype(username)
+
+    elif select_option == "Profile":
+    
+        st.subheader("@" + username)
+        imgrid(username)
     
 elif authentication_status is False:
     st.error('Username/password is incorrect')

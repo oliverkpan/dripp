@@ -1,12 +1,17 @@
 import streamlit as st
 from PIL import Image
 from image_utils import image_to_byte_array, localize_objects, create_boundaries
-from data_utils import write_results_to_df, product_catalog_columns
+from data_utils import write_results_to_df, product_catalog_columns, random_with_N_digits
 from search import google_lens, reverse_image_search
+from gcs_utils import write_read
 import os
 import cv2
+import pandas as pd
 
-def prototype():
+def prototype(username):
+
+    encryption = str(random_with_N_digits(15))
+
     # User uploads image
     image = st.file_uploader("Upload image")
 
@@ -16,10 +21,21 @@ def prototype():
         image.save('images/selected.png')
 
         st.subheader("Uploaded image")
-
         st.image(image, width=400)
-
+        
         if st.button("Detect objects"):
+
+            img = cv2.imread('images/selected.png')
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+            path = f"profile/uploaded_{encryption}.png"
+            img = Image.fromarray(img, 'RGB')
+            img.save(path)
+            write_read('dripp_images_test2', path)
+
+            df = pd.read_csv('test.csv')
+            df.loc[len(df)] = [username, f"https://storage.googleapis.com/dripp_images_test2/{path}"]
+            df.to_csv('test.csv', index = False)
+
             image_to_byte = image_to_byte_array(image)
             num_entities, coordinates_dict = localize_objects(image_to_byte)
             
@@ -41,8 +57,10 @@ def prototype():
                 with tab1:
 
                     results = google_lens(f'temp_images/{keys[0].lower()}_{encryption}.png')
+                    
 
                     try:
+                        
                         with st.expander("See results"):
                             df1 = write_results_to_df(results)
 
@@ -50,13 +68,9 @@ def prototype():
                             product_catalog_columns(df1)
 
                     except:
-                        try:
-                            results = reverse_image_search(f'temp_images/{keys[0].lower()}_{encryption}.png')
-                            st.write(results)
-                        except:
-                            st.write("No product matches")
+                        pass
             except:
-                st.write("?")
+                pass
 
             try:
                 with tab2:
@@ -71,9 +85,9 @@ def prototype():
                             product_catalog_columns(df2)
 
                     except:
-                        st.write("No product matches")
+                        pass
             except:
-                st.write("?")
+                pass
 
             try:
                 with tab3:
@@ -88,6 +102,6 @@ def prototype():
                             product_catalog_columns(df3)
 
                     except:
-                        st.write("No product matches")
+                        pass
             except:
-                st.write("?")
+                pass
