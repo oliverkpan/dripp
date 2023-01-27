@@ -2,3 +2,4 @@ images/
 temp_images/
 *.json
 __pycache__/
+*.pkl

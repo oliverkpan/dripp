@@ -2,7 +2,7 @@ import streamlit as st
 from PIL import Image
 from image_utils import image_to_byte_array, localize_objects, create_boundaries
 from data_utils import write_results_to_df, product_catalog_columns
-from search import google_lens
+from search import google_lens, reverse_image_search
 import os
 import cv2
 
@@ -50,7 +50,11 @@ def prototype():
                             product_catalog_columns(df1)
 
                     except:
-                        st.write("No product matches")
+                        try:
+                            results = reverse_image_search(f'temp_images/{keys[0].lower()}_{encryption}.png')
+                            st.write(results)
+                        except:
+                            st.write("No product matches")
             except:
                 st.write("?")
 
