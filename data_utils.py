@@ -40,8 +40,6 @@ def write_results_to_df(results):
         new_data = pd.DataFrame([[title, link, source, price, thumbnail]], columns=columns)
         df = pd.concat([df, new_data])
         df = df[~df['price'].isna()]
-        
-        st.write(df)
 
     return df
 

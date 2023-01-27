@@ -56,8 +56,10 @@ def create_boundaries(object_coordinates):
     item_count = 0
     
     for key in object_coordinates.keys():
-        if key in ['Pants', 'Hat', 'Top', 'Outerwear', 'Shoes']:
+        if key in ['Pants', 'Hat', 'Top', 'Outerwear', 'Shoe', 'Shorts', 'Shoes']:
             item_count += 1
+
+    st.write("Items Detected: " + str(item_count))
 
     if item_count == 1:
         col1 = st.columns(1)
@@ -65,12 +67,12 @@ def create_boundaries(object_coordinates):
     elif item_count == 2:
         col1, col2 = st.columns(2)
 
-    elif item_count == 3:
+    else:
         col1, col2, col3 = st.columns(3)
 
     column_count = 1
     for key in object_coordinates.keys():
-        if key in ['Pants', 'Hat', 'Top', 'Outerwear', 'Shoes'] and column_count < 4:
+        if key in ['Pants', 'Hat', 'Top', 'Outerwear', 'Shoe', 'Shorts', 'Shoes'] and column_count < 4:
             
             with locals()['col' + str(column_count)]:
                 data = object_coordinates[key]

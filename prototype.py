@@ -48,60 +48,63 @@ def prototype(username):
         
             keys = list(items.keys())
 
-            if len(keys) == 3:    
-                tab1, tab2, tab3 = st.tabs(items.keys())
-            else:
-                tab1, tab2 = st.tabs(items.keys())
-        
-            try:
-                with tab1:
+            if len(keys) != 0:
+                if len(keys) == 3:    
+                    tab1, tab2, tab3 = st.tabs(items.keys())
+                elif len(keys) == 2:
+                    tab1, tab2 = st.tabs(items.keys())
+                else:
+                    tab1 = st.tabs(items.keys())
+            
+                try:
+                    with tab1:
 
-                    results = google_lens(f'temp_images/{keys[0].lower()}_{encryption}.png')
-                    
-
-                    try:
+                        results = google_lens(f'temp_images/{keys[0].lower()}_{encryption}.png')
                         
-                        with st.expander("See results"):
+                        try:
+                            
                             df1 = write_results_to_df(results)
 
-                        with st.expander("Product catalog"):
-                            product_catalog_columns(df1)
+                            with st.expander("Product catalog"):
+                                product_catalog_columns(df1)
 
-                    except:
-                        pass
-            except:
-                pass
+                        except:
+                            pass
+                except:
+                    pass
 
-            try:
-                with tab2:
+                try:
+                    with tab2:
 
-                    results = google_lens(f'temp_images/{keys[1].lower()}_{encryption}.png')
+                        results = google_lens(f'temp_images/{keys[1].lower()}_{encryption}.png')
 
-                    try:
-                        with st.expander("See results"):
+                        try:
+
                             df2 = write_results_to_df(results)
 
-                        with st.expander("Product catalog"):
-                            product_catalog_columns(df2)
+                            with st.expander("Product catalog"):
+                                product_catalog_columns(df2)
 
-                    except:
-                        pass
-            except:
-                pass
+                        except:
+                            pass
+                except:
+                    pass
 
-            try:
-                with tab3:
+                try:
+                    with tab3:
 
-                    results = google_lens(f'temp_images/{keys[2].lower()}_{encryption}.png')
+                        results = google_lens(f'temp_images/{keys[2].lower()}_{encryption}.png')
 
-                    try:
-                        with st.expander("See results"):
+                        try:
                             df3 = write_results_to_df(results)
 
-                        with st.expander("Product catalog"):
-                            product_catalog_columns(df3)
+                            with st.expander("Product catalog"):
+                                product_catalog_columns(df3)
 
-                    except:
-                        pass
-            except:
-                pass
+                        except:
+                            pass
+                except:
+                    pass
+
+            else:
+                st.write("No entities detected")
