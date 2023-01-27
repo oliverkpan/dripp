@@ -50,11 +50,11 @@ def create_boundaries(object_coordinates):
 
     # Count how many items we get, max at 3 highest scores
     top_items_dict = {}
+    encryption = str(random_with_N_digits(15))
 
     # BRUTE FORCE METHOD to dynamically creat streamlit columns
     item_count = 0
     
-    print(object_coordinates)
     for key in object_coordinates.keys():
         if key in ['Pants', 'Hat', 'Top', 'Outerwear', 'Shoes']:
             item_count += 1
@@ -89,13 +89,10 @@ def create_boundaries(object_coordinates):
                 second_point_x = round(points[2][1] * number_of_rows)
 
                 fig, ax = plt.subplots(1, 1, figsize=(5, 5))
-                # image = cv2.rectangle(img, (first_point_y, first_point_x), (second_point_y, se`cond_point_x), (0, 255, 0), 6)
                 ax.set_axis_off()
                 cropped_image = img[first_point_x:second_point_x, first_point_y:second_point_y]
                 im = Image.fromarray(cropped_image)
                 im.save("temp_images/testy.png")
-
-                encryption = str(random_with_N_digits(15))
 
                 path = f"temp_images/{key.lower()}_{encryption}.png"
                 im.save(path)

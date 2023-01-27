@@ -2,11 +2,11 @@ from serpapi import GoogleSearch
 from data_utils import read_api_key
 import streamlit as st
 
-def reverse_image_search():
+def reverse_image_search(path):
 
     params = {
         "engine": "google_reverse_image",
-        "image_url": "https://storage.googleapis.com/dripp_images_test2/shirt.png",
+        "image_url": f"https://storage.googleapis.com/dripp_images_test2/{path}",
         "api_key": read_api_key()
     }
 
