@@ -35,20 +35,19 @@ if authentication_status:
     # Create sidebar
     with st.sidebar:
         st.image('images/dripp.png')
-        select_option = st.radio("Select", ("Outfit Detection", "Profile", "Search", "How to use", "FAQ"))
+        select_option = st.radio("Select", ("Outfit Detection", "Profile", "Search", "How to use"   ))
         authenticator.logout('Logout', 'main')
 
     if select_option == "Outfit Detection":
         prototype(username)
 
     elif select_option == "Profile":  
-        st.subheader("@" + username)
+        st.subheader(f"@{username}")
         imgrid(username)
 
     elif select_option == "Search":  
-        
-        st.subheader("@" + username)
-        imgrid(username)
+        celeb = st.text_input('Search Username')
+        imgrid(celeb)
     
 elif authentication_status is False:
     st.error('Username/password is incorrect')
