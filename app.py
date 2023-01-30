@@ -14,7 +14,10 @@ from pathlib import Path
 import pandas as pd
 
 # Page configs
-st.set_page_config(layout="wide")
+im = Image.open("favicon.ico")
+st.set_page_config(layout="wide",
+                   page_title="dripp",
+                   page_icon=im)
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
 if 'item_search' not in st.session_state:
@@ -34,8 +37,8 @@ if authentication_status:
 
     # Create sidebar
     with st.sidebar:
-        st.image('images/dripp.png')
-        select_option = st.radio("Select", ("Outfit Detection", "Profile", "Search", "How to use"   ))
+        dripp_logo = st.image('images/dripp.png')
+        select_option = st.radio("Select", ("Outfit Detection", "Profile", "Search", "How to use"))
         authenticator.logout('Logout', 'main')
 
     if select_option == "Outfit Detection":

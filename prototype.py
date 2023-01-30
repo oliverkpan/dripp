@@ -32,13 +32,13 @@ def prototype(username):
             img.save(path)
             write_read('dripp_images_test2', path)
 
-            df = pd.read_csv('test.csv')
+            df = pd.read_csv('application_posts.csv')
             df.loc[len(df)] = [username, f"https://storage.googleapis.com/dripp_images_test2/{path}"]
-            df.to_csv('test.csv', index = False)
+            df.to_csv('application_posts.csv', index = False)
 
             image_to_byte = image_to_byte_array(image)
             num_entities, coordinates_dict = localize_objects(image_to_byte)
-            
+
             # Need to write a path here
             st.subheader("Detected Items")
             items, encryption = create_boundaries(coordinates_dict)

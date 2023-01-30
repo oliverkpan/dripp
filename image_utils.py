@@ -59,8 +59,6 @@ def create_boundaries(object_coordinates):
         if key in ['Pants', 'Hat', 'Top', 'Outerwear', 'Shoe', 'Shorts', 'Shoes']:
             item_count += 1
 
-    st.write("Items Detected: " + str(item_count))
-
     if item_count == 1:
         col1 = st.columns(1)
     

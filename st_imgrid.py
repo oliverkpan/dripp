@@ -8,7 +8,7 @@ import pandas as pd
 def imgrid(username):
     zoom_val = st.sidebar.slider('Zoom',500,600)
 
-    df = pd.read_csv('test.csv')
+    df = pd.read_csv('application_posts.csv')
     df = df[df['username'] == username]
 
     urls = []
